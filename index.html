@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure AI Translator Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <header class="glass-header">
+            <div class="logo-area">
+                <i class="fa-solid fa-language"></i>
+                <h1>Azure AI Translator</h1>
+            </div>
+            <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+        </header>
+
+        <main class="dashboard-grid">
+            <!-- Settings Panel -->
+            <section class="glass-card settings-panel">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-gear"></i> Configuration</h2>
+                    <button id="toggle-settings" class="icon-btn mobile-only"><i
+                            class="fa-solid fa-chevron-down"></i></button>
+                </div>
+                <div class="settings-content" id="settings-content">
+                    <div class="input-group">
+                        <label for="api-key">API Key</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="api-key" placeholder="Enter Azure API Key">
+                            <i class="fa-solid fa-eye toggle-password"></i>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="region">Region</label>
+                        <select id="region">
+                            <option value="" disabled selected>Select Region</option>
+                            <option value="centralindia">Central India</option>
+                            <option value="uaenorth">UAE North</option>
+                            <option value="eastus">East US</option>
+                            <option value="westeurope">West Europe</option>
+                            <option value="southeastasia">Southeast Asia</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="save-creds">
+                        <label for="save-creds">Save Credentials Locally</label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Translation Area -->
+            <section class="glass-card translation-panel">
+                <div class="translation-controls">
+                    <div class="lang-select-group">
+                        <select id="source-lang">
+                            <option value="">Detect Language</option>
+                            <option value="en">English</option>
+                            <option value="hi">Hindi</option>
+                            <option value="fr">French</option>
+                            <option value="es">Spanish</option>
+                            <option value="de">German</option>
+                            <option value="ja">Japanese</option>
+                            <option value="zh-Hans">Chinese (Simplified)</option>
+                        </select>
+                        <button id="swap-langs" class="icon-btn" title="Swap Languages">
+                            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                        </button>
+                        <select id="target-lang">
+                            <option value="hi" selected>Hindi</option>
+                            <option value="en">English</option>
+                            <option value="fr">French</option>
+                            <option value="es">Spanish</option>
+                            <option value="de">German</option>
+                            <option value="ja">Japanese</option>
+                            <option value="zh-Hans">Chinese (Simplified)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-areas">
+                    <div class="text-box source-box">
+                        <div class="box-header">
+                            <span class="char-count" id="source-count">0/5000</span>
+                            <div class="box-actions">
+                                <button id="voice-input" class="icon-btn" title="Voice Input"><i
+                                        class="fa-solid fa-microphone"></i></button>
+                                <button id="clear-source" class="icon-btn" title="Clear"><i
+                                        class="fa-solid fa-xmark"></i></button>
+                            </div>
+                        </div>
+                        <textarea id="source-text" placeholder="Type or speak text here..."></textarea>
+                    </div>
+
+                    <div class="text-box target-box">
+                        <div class="box-header">
+                            <span id="detected-lang-label" class="detected-label"></span>
+                            <div class="box-actions">
+                                <button id="speak-output" class="icon-btn" title="Listen"><i
+                                        class="fa-solid fa-volume-high"></i></button>
+                                <button id="copy-output" class="icon-btn" title="Copy"><i
+                                        class="fa-regular fa-copy"></i></button>
+                            </div>
+                        </div>
+                        <textarea id="target-text" placeholder="Translation will appear here..." readonly></textarea>
+                    </div>
+                </div>
+
+                <div class="action-bar">
+                    <button id="translate-btn" class="primary-btn">
+                        <span class="btn-text">Translate Now</span>
+                        <div class="loader hidden"></div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- History Panel -->
+            <section class="glass-card history-panel">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-clock-rotate-left"></i> Recent History</h2>
+                    <button id="clear-history" class="text-btn">Clear All</button>
+                </div>
+                <ul id="history-list" class="history-list">
+                    <li class="empty-state">No recent translations</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
